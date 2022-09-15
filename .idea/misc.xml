@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_suburb_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_weather.xml" value="0.1" />
         <entry key="app/src/main/res/menu/top_navigation_menu.xml" value="0.1" />
       </map>
     </option>
