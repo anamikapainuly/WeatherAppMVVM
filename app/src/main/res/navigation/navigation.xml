@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/suburbListFragment">
+    <fragment
+        android:id="@+id/suburbListFragment"
+        android:name="com.anupras.weatherappsample.ui.fragment.SuburbListFragment"
+        android:label="fragment_suburb_list"
+        tools:layout="@layout/fragment_suburb_list" >
+        <action
+            android:id="@+id/action_suburbListFragment_to_detailViewFragment"
+            app:destination="@id/detailViewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/detailViewFragment"
+        android:name="com.anupras.weatherappsample.ui.fragment.DetailViewFragment"
+        android:label="fragment_detail_view"
+        tools:layout="@layout/fragment_detail_view" />
+</navigation>

@@ -1,4 +1,4 @@
-package com.anupras.weatherappsample
+package com.anupras.weatherappsample.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
