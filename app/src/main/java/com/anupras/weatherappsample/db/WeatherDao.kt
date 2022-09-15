@@ -17,16 +17,16 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeather(data: List<Data>)
 
-    @Query("DELETE FROM weather_table")
+    @Query("DELETE FROM weather_tb")
     suspend fun deleteAllWeather()
 
-    @Query("SELECT * FROM weather_table ORDER BY name ASC")
+    @Query("SELECT * FROM weather_tb ORDER BY name ASC")
     fun getAllWeatherByCity(): Flow<List<Data>>
 
-    @Query("SELECT * FROM weather_table ORDER BY weatherTemp ASC")
+    @Query("SELECT * FROM weather_tb ORDER BY weatherTemp ASC")
     fun getAllWeatherByTemp(): LiveData<List<Data>>
 
-    @Query("SELECT * FROM weather_table ORDER BY weatherLastUpdated ASC")
+    @Query("SELECT * FROM weather_tb ORDER BY weatherLastUpdated ASC")
     fun getAllWeatherByLastUpdated(): LiveData<List<Data>>
 
 }

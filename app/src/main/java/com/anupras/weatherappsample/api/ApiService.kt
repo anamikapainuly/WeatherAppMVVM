@@ -1,6 +1,7 @@
 package com.anupras.weatherappsample.api
 
 import com.anupras.weatherappsample.model.Data
+import com.anupras.weatherappsample.model.WeatherResponse
 import retrofit2.http.GET
 
 /**
@@ -8,5 +9,5 @@ import retrofit2.http.GET
  */
 interface ApiService {
     @GET("venues/weather.json")
-    suspend fun getWeather(): List<Data>
+    suspend fun getWeather(): WeatherResponse
 }

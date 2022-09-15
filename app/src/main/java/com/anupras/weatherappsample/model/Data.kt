@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "weather_table")
+@Entity(tableName = "weather_tb")
 data class Data(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
