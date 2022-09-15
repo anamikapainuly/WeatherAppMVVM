@@ -1,0 +1,32 @@
+package com.anupras.weatherappsample.di
+
+import com.anupras.weatherappsample.api.ApiService
+import com.anupras.weatherappsample.utils.Constants
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
+
+/**
+ * Created by anamika on 16,September,2022
+ */
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
+
+    @Provides
+    fun provideBaseUrl() = Constants.BASE_URL
+
+    @Provides
+    @Singleton
+    fun provideRetrofitInstance(BASE_URL: String):ApiService =
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiService::class.java)
+
+}
