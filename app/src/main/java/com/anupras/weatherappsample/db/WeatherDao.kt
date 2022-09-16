@@ -21,7 +21,7 @@ interface WeatherDao {
     suspend fun deleteAllWeather()
 
     @Query("SELECT * FROM weather_tb where id = :id")
-    suspend fun getWeatherById(id: Int): Data?
+    fun getWeatherById(id: Int): LiveData<Data>
 
     @Query("SELECT * FROM weather_tb ORDER BY name ASC")
     fun getAllWeatherByCity(): Flow<List<Data>>

@@ -16,6 +16,9 @@ data class Data(
     @Embedded(prefix = "sport")
     @SerializedName("_sport")
     var sport: Sport?,
+    @Embedded(prefix = "country")
+    @SerializedName("_country")
+    var country: Country?,
     @SerializedName("_weatherCondition")
     var weatherCondition: String?,
     @SerializedName("_weatherConditionIcon")

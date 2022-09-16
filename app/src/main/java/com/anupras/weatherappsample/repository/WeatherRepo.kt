@@ -2,6 +2,7 @@ package com.anupras.weatherappsample.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.room.withTransaction
 import com.anupras.weatherappsample.api.ApiService
 import com.anupras.weatherappsample.db.WeatherDao
@@ -17,8 +18,13 @@ import javax.inject.Inject
 class WeatherRepo  @Inject constructor(
     private val apiService: ApiService,
     private val db: WeatherDatabase,
-    private val dao: WeatherDao
+    private val dao: WeatherDao,
+    stateStateHandle: SavedStateHandle
 ) {
+
+    fun getWeatherDetails(id:Int) : LiveData<Data> {
+        return dao.getWeatherById(id)
+    }
 
     fun getWeatherByTemp() : LiveData<List<Data>> {
         return dao.getAllWeatherByTemp()

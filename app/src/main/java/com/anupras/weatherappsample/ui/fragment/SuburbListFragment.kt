@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anupras.weatherappsample.R
 import com.anupras.weatherappsample.adapters.WeatherAdapter
@@ -25,12 +26,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider {
+class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider,
+    WeatherAdapter.OnItemClickListener {
     private var _binding: FragmentSuburbListBinding? = null
     private val binding get() = _binding!!
     private val viewModel: WeatherViewModel by viewModels()
-    private val weatherAdapter = WeatherAdapter()
-    lateinit var refresh: MenuItem
+    private val weatherAdapter = WeatherAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,6 +63,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
             weatherAdapter.notifyItemRangeChanged(0, weatherAdapter.itemCount)
         }
     }
+
     private fun populateWeatherByLastUpdate() {
         viewModel.weatherListLastUpdated.observe(viewLifecycleOwner) { result ->
             weatherAdapter.submitList(result)
@@ -86,11 +88,9 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
 
                     }
                 }
-
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
-
             }
 
             override fun onTabReselected(tab: TabLayout.Tab) {
@@ -98,7 +98,6 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         })
 
     }
-
 
     private fun initRecyclerView() {
         binding.apply {
@@ -119,13 +118,19 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        when(menuItem.itemId){
+        when (menuItem.itemId) {
             R.id.action_refresh -> {
                 populateWeatherList()
                 return true
             }
         }
         return false
+    }
+
+    override fun onItemClick(position: Int, id: Int) {
+        val action =
+            SuburbListFragmentDirections.actionSuburbListFragmentToDetailViewFragment(id.toString())
+        findNavController().navigate(action)
     }
 
 }
