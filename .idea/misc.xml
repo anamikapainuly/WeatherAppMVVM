@@ -6,6 +6,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20611267089843752" />
         <entry key="app/src/main/res/layout/fragment_suburb_list.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_weather.xml" value="0.335" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.22407407407407406" />
+        <entry key="app/src/main/res/menu/header_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/top_navigation_menu.xml" value="0.1" />
       </map>
     </option>

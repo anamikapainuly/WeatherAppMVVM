@@ -37,7 +37,6 @@ class WeatherRepo  @Inject constructor(
             apiService.getWeather()
         },
         saveFetchResult = {
-            Log.d("Check111--", it.toString())
             db.withTransaction {
                 dao.deleteAllWeather()
                 dao.insertWeather(it.dataList)

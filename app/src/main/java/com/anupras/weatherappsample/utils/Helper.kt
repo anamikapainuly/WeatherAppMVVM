@@ -22,5 +22,10 @@ class Helper {
             }
             return ""
         }
+
+        fun returnCurrentDate(): String{
+            val dateFormat: SimpleDateFormat = SimpleDateFormat("dd-MMM-yyyy HH:mm:ss")
+            return dateFormat.format(Date())
+        }
     }
 }

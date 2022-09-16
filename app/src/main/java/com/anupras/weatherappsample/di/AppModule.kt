@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.anupras.weatherappsample.api.ApiService
 import com.anupras.weatherappsample.db.WeatherDatabase
 import com.anupras.weatherappsample.utils.Constants
+import com.anupras.weatherappsample.utils.PrefsHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
