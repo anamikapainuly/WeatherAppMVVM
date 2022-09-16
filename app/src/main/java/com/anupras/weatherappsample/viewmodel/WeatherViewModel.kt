@@ -15,4 +15,7 @@ class WeatherViewModel@Inject constructor(
 ): ViewModel() {
 
     val weatherList = repo.getWeatherList().asLiveData()
+
+    val weatherListTemp = repo.getWeatherByTemp()
+
 }

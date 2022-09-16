@@ -19,9 +19,14 @@ class WeatherRepo  @Inject constructor(
     private val db: WeatherDatabase,
     private val dao: WeatherDao
 ) {
-    //We have data already stored in db so we can fetch from there and use query
-    val sortedListByTemp: LiveData<List<Data>> = dao.getAllWeatherByTemp()
-    val sortedListByLastUpdate: LiveData<List<Data>> = dao.getAllWeatherByLastUpdated()
+
+    fun getWeatherByTemp() : LiveData<List<Data>> {
+        return dao.getAllWeatherByTemp()
+    }
+
+    fun getWeatherByLastUpdated() : LiveData<List<Data>> {
+        return dao.getAllWeatherByLastUpdated()
+    }
 
     fun getWeatherList() = networkBoundResource(
         query = {

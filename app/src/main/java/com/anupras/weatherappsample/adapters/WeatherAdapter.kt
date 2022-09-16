@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.anupras.weatherappsample.databinding.ItemWeatherBinding
 import com.anupras.weatherappsample.model.Data
+import com.anupras.weatherappsample.utils.Helper
 
 /**
  * Created by anamika on 16,September,2022
@@ -31,6 +32,11 @@ class WeatherAdapter : ListAdapter<Data, WeatherAdapter.WeatherViewHolder>(DiffC
                 if(data.weatherTemp!=null) {
                     tempText.text = "${data.weatherTemp} ${"\u00B0"}"
                 }
+                else {
+                    tempText.text = "NA  "
+                }
+                var dateTime = Helper.getDateCurrentTimeZone(data.weatherLastUpdated?.toLong() ?: 0)
+                lastUpdatedText.text = "Last Updated: $dateTime"
             }
         }
     }

@@ -26,9 +26,9 @@ data class Data(
     @SerializedName("_weatherHumidity")
     var weatherHumidity: String?,
     @SerializedName("_weatherLastUpdated")
-    var weatherLastUpdated: Int?,
+    var weatherLastUpdated: Long?,
     @SerializedName("_weatherTemp")
-    var weatherTemp: String?,
+    var weatherTemp: Int?,
     @SerializedName("_weatherWind")
     var weatherWind: String?
 )
