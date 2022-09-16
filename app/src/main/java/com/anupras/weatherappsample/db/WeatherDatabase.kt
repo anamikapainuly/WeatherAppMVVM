@@ -2,6 +2,7 @@ package com.anupras.weatherappsample.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.anupras.weatherappsample.model.Data
 
 /**

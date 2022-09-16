@@ -1,10 +1,9 @@
 package com.anupras.weatherappsample.model
 
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 @Entity(tableName = "weather_tb")
 data class Data(
@@ -25,6 +24,7 @@ data class Data(
     var weatherFeelsLike: String?,
     @SerializedName("_weatherHumidity")
     var weatherHumidity: String?,
+    @TypeConverters(Converters::class)
     @SerializedName("_weatherLastUpdated")
     var weatherLastUpdated: Long?,
     @SerializedName("_weatherTemp")
@@ -32,3 +32,15 @@ data class Data(
     @SerializedName("_weatherWind")
     var weatherWind: String?
 )
+
+object Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return value?.let { Date(it) }
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time
+    }
+}

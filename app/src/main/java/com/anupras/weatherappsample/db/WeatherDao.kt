@@ -29,7 +29,7 @@ interface WeatherDao {
     @Query("SELECT * FROM weather_tb ORDER BY weatherTemp DESC")
     fun getAllWeatherByTemp(): LiveData<List<Data>>
 
-    @Query("SELECT * FROM weather_tb ORDER BY weatherLastUpdated ASC")
+    @Query("SELECT * FROM weather_tb ORDER BY weatherLastUpdated DESC")
     fun getAllWeatherByLastUpdated(): LiveData<List<Data>>
 
 }

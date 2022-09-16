@@ -36,23 +36,24 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list) {
     private fun populateWeatherList() {
         viewModel.weatherList.observe(viewLifecycleOwner) { result ->
             weatherAdapter.submitList(result.data)
-            Log.d("CHECK--", result.data.toString())
             binding.progressBar.isVisible =
                 result is Resource.Loading && result.data.isNullOrEmpty()
         }
-        weatherAdapter.notifyDataSetChanged()
+
     }
 
     private fun populateWeatherByTemp() {
         viewModel.weatherListTemp.observe(viewLifecycleOwner) { result ->
             weatherAdapter.submitList(result)
-            Log.d("CHECK--", result.toString())
         }
-        weatherAdapter.notifyDataSetChanged()
+    }
+    private fun populateWeatherByLastUpdate() {
+        viewModel.weatherListLastUpdated.observe(viewLifecycleOwner) { result ->
+            weatherAdapter.submitList(result)
+        }
     }
 
     private fun initTabLayoutFilter() {
-
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
@@ -63,12 +64,13 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list) {
                         populateWeatherByTemp()
                     }
                     2 -> {
-                        Log.d("CHECK--", "x is  2")
+                        populateWeatherByLastUpdate()
                     }
                     else -> { // Note the block
-                        Log.d("CHECK--", "")
+
                     }
                 }
+
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -91,6 +93,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list) {
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

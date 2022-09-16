@@ -17,5 +17,6 @@ class WeatherViewModel@Inject constructor(
     val weatherList = repo.getWeatherList().asLiveData()
 
     val weatherListTemp = repo.getWeatherByTemp()
+    val weatherListLastUpdated = repo.getWeatherByLastUpdated()
 
 }
