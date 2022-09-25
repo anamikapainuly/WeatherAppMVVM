@@ -11,13 +11,18 @@
         tools:layout="@layout/fragment_suburb_list" >
         <argument
             android:name="id"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue=""/>
         <action
             android:id="@+id/action_suburbListFragment_to_detailViewFragment"
             app:destination="@id/detailViewFragment"
             app:enterAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_suburbListFragment_to_countryFragment2"
+            app:destination="@id/countryFragment2" />
     </fragment>
     <fragment
         android:id="@+id/detailViewFragment"
@@ -27,5 +32,19 @@
         <argument
             android:name="id"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/countryFragment2"
+        android:name="com.anupras.weatherappsample.ui.fragment.CountryFragment"
+        android:label="fragment_country"
+        tools:layout="@layout/fragment_country" >
+        <action
+            android:id="@+id/action_countryFragment2_to_suburbListFragment"
+            app:destination="@id/suburbListFragment" >
+            <argument
+                android:name="id"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
     </fragment>
 </navigation>

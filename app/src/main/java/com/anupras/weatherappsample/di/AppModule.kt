@@ -35,6 +35,7 @@ object AppModule {
             .build()
             .create(ApiService::class.java)
 
+
     @Provides
     @Singleton
     fun provideDatabase(
@@ -44,6 +45,7 @@ object AppModule {
         .build()
 
     @Provides
+    @Singleton
     fun provideWeatherDao(db: WeatherDatabase) = db.weatherDao()
 
     @Provides

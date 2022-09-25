@@ -23,13 +23,17 @@ interface WeatherDao {
     @Query("SELECT * FROM weather_tb where id = :id")
     fun getWeatherById(id: Int): LiveData<Data>
 
-    @Query("SELECT * FROM weather_tb ORDER BY name ASC")
-    fun getAllWeatherByCity(): Flow<List<Data>>
+    @Query("SELECT * FROM weather_tb WHERE country_name = (:id) ORDER BY name ASC")
+    fun getAllWeatherByCity(id: String): Flow<List<Data>>
 
     @Query("SELECT * FROM weather_tb ORDER BY weatherTemp DESC")
     fun getAllWeatherByTemp(): LiveData<List<Data>>
 
     @Query("SELECT * FROM weather_tb ORDER BY weatherLastUpdated DESC")
     fun getAllWeatherByLastUpdated(): LiveData<List<Data>>
+
+    @Query("SELECT * FROM weather_tb ORDER BY country_name ASC")
+    fun getAllWeatherByCountry(): LiveData<List<Data>>
+
 
 }

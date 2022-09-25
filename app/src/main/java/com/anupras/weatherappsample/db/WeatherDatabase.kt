@@ -12,4 +12,5 @@ import com.anupras.weatherappsample.model.Data
 abstract class WeatherDatabase : RoomDatabase() {
     abstract fun weatherDao() : WeatherDao
 
+
 }

@@ -30,24 +30,30 @@ class WeatherRepo  @Inject constructor(
         return dao.getAllWeatherByTemp()
     }
 
+    fun getWeatherByCountry() : LiveData<List<Data>> {
+        return dao.getAllWeatherByCountry()
+    }
+
     fun getWeatherByLastUpdated() : LiveData<List<Data>> {
         return dao.getAllWeatherByLastUpdated()
     }
 
-    fun getWeatherList() = networkBoundResource(
+    fun getWeatherList(id: String) = networkBoundResource(
+
         query = {
-            dao.getAllWeatherByCity()
+            dao.getAllWeatherByCity(id)
         },
         fetch = {
-            delay(2000)
             apiService.getWeather()
         },
-        saveFetchResult = {
+        saveFetchResult = { weatherList ->
             db.withTransaction {
                 dao.deleteAllWeather()
-                dao.insertWeather(it.dataList)
+                dao.insertWeather(weatherList.dataList)
             }
-        }
+        },
+        //pass in the logic to determine if the networking call should be made
+        shouldFetch = { true }
     )
 
 }

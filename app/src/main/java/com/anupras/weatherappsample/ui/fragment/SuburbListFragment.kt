@@ -12,7 +12,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anupras.weatherappsample.R
@@ -31,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider,
     WeatherAdapter.OnItemClickListener {
     private var _binding: FragmentSuburbListBinding? = null
+    private val args: SuburbListFragmentArgs by navArgs()
     private val binding get() = _binding!!
     private val viewModel: WeatherViewModel by viewModels()
     private val weatherAdapter = WeatherAdapter(this)
@@ -43,7 +46,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         initRecyclerView()
-        populateWeatherList()
+        populateWeatherList(args.id.toString())
         initTabLayoutFilter()
         initUI()
     }
@@ -72,15 +75,17 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         })
 
         binding.buttonFilter.setOnClickListener {
-
+            val action =
+                SuburbListFragmentDirections.actionSuburbListFragmentToCountryFragment2()
+            findNavController().navigate(action)
         }
 
         binding.swiperefresh.setOnRefreshListener {
-            populateWeatherList()
+            populateWeatherList(args.id.toString())
         }
     }
 
-    private fun populateWeatherList() {
+    private fun populateWeatherList(selected_country: String) {
 
         viewModel.weatherList.observe(viewLifecycleOwner) { result ->
             weatherAdapter.submitList(result.data)
@@ -122,7 +127,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        populateWeatherList()
+                        populateWeatherList(args.id.toString())
                     }
                     1 -> {
                         populateWeatherByTemp()
@@ -167,8 +172,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         when (menuItem.itemId) {
             R.id.action_refresh -> {
                 binding.swiperefresh.isRefreshing = true
-
-                populateWeatherList()
+                populateWeatherList(args.id.toString())
                 if(binding.tabLayout.selectedTabPosition==1)
                 {
                     populateWeatherByTemp()
