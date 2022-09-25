@@ -9,4 +9,5 @@
     <string name="detailview">Detail View</string>
     <string name="textview">NA</string>
     <string name="not_available">Not Available</string>
+    <string name="filter">Filter</string>
 </resources>

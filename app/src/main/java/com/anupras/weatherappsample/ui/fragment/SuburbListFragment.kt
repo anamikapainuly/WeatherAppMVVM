@@ -1,6 +1,7 @@
 package com.anupras.weatherappsample.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -37,15 +38,17 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSuburbListBinding.bind(view)
+
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         initRecyclerView()
         populateWeatherList()
         initTabLayoutFilter()
-        init()
+        initUI()
     }
 
-    private fun init() {
+    private fun initUI() {
 
             weatherAdapter.registerAdapterDataObserver(object: RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
@@ -71,18 +74,26 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         binding.buttonFilter.setOnClickListener {
 
         }
+
+        binding.swiperefresh.setOnRefreshListener {
+            populateWeatherList()
+        }
     }
 
     private fun populateWeatherList() {
 
         viewModel.weatherList.observe(viewLifecycleOwner) { result ->
+            weatherAdapter.submitList(result.data)
+            weatherAdapter.notifyItemRangeChanged(0, weatherAdapter.itemCount)
+
             binding.progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
             binding.textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
             binding.textViewError.text = result.error?.localizedMessage
 
-            weatherAdapter.submitList(result.data)
-            weatherAdapter.notifyItemRangeChanged(0, weatherAdapter.itemCount)
+            binding.swiperefresh.isRefreshing = false
+
         }
+
         //Saving last updated date
         PrefsHelper.setLastSyncDate("Last Updated:  " + Helper.returnCurrentDate().toString())
         binding.lastUpdatedText.text = PrefsHelper.getLastSyncDate()
@@ -155,7 +166,16 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.action_refresh -> {
+                binding.swiperefresh.isRefreshing = true
+
                 populateWeatherList()
+                if(binding.tabLayout.selectedTabPosition==1)
+                {
+                    populateWeatherByTemp()
+                }else if(binding.tabLayout.selectedTabPosition==2)
+                {
+                    populateWeatherByLastUpdate()
+                }
                 return true
             }
         }
