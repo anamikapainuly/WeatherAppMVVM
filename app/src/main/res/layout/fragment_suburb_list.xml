@@ -46,8 +46,9 @@
         android:id="@+id/recycler_view_data"
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonFilter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout">
@@ -64,6 +65,16 @@
             app:layout_constraintStart_toStartOf="@+id/recycler_view_data"
             app:layout_constraintTop_toTopOf="@+id/recycler_view_data" />
 
+    <Button
+        android:id="@+id/buttonFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:text="Filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/text_view_error"
         android:layout_width="wrap_content"
@@ -78,4 +89,6 @@
         app:layout_constraintTop_toTopOf="@+id/tabLayout"
         tools:text="Error message"
         tools:visibility="visible" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,6 @@
 package com.anupras.weatherappsample.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -14,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.anupras.weatherappsample.R
 import com.anupras.weatherappsample.adapters.WeatherAdapter
 import com.anupras.weatherappsample.databinding.FragmentSuburbListBinding
@@ -42,9 +42,39 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         initRecyclerView()
         populateWeatherList()
         initTabLayoutFilter()
+        init()
+    }
+
+    private fun init() {
+
+            weatherAdapter.registerAdapterDataObserver(object: RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                binding.recyclerViewData.scrollToPosition(0)
+            }
+            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                binding.recyclerViewData.scrollToPosition(0)
+            }
+            override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+                binding.recyclerViewData.scrollToPosition(0)
+            }
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                binding.recyclerViewData.scrollToPosition(0)
+            }
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                binding.recyclerViewData.scrollToPosition(0)
+            }
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+                binding.recyclerViewData.scrollToPosition(0)
+            }
+        })
+
+        binding.buttonFilter.setOnClickListener {
+
+        }
     }
 
     private fun populateWeatherList() {
+
         viewModel.weatherList.observe(viewLifecycleOwner) { result ->
             binding.progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
             binding.textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
@@ -61,18 +91,20 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
     }
 
     private fun populateWeatherByTemp() {
-        viewModel.weatherListTemp.observe(viewLifecycleOwner) { result ->
-            weatherAdapter.submitList(result)
+        viewModel.weatherListTemp.observe(viewLifecycleOwner) {
+            weatherAdapter.submitList(it)
             weatherAdapter.notifyItemRangeChanged(0, weatherAdapter.itemCount)
         }
     }
 
     private fun populateWeatherByLastUpdate() {
-        viewModel.weatherListLastUpdated.observe(viewLifecycleOwner) { result ->
-            weatherAdapter.submitList(result)
+        viewModel.weatherListLastUpdated.observe(viewLifecycleOwner) {
+            weatherAdapter.submitList(it)
             weatherAdapter.notifyItemRangeChanged(0, weatherAdapter.itemCount)
         }
+
     }
+
 
     private fun initTabLayoutFilter() {
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
