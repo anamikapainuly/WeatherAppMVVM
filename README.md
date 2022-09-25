@@ -1,10 +1,23 @@
 # WeatherAppMVVM
-Weather App using MVVM
-MVVM With Retrofit and Recyclerview in Kotlin
-Coroutine Flow, Emit functions , change in data
+-> Weather App using MVVM
+
+-> MVVM With Retrofit and Recyclerview in Kotlin
+
+-> Hilt for DI, database instance, dao instance
+-> Hilt is used for Instance of database, repo, retrofit.
+
+
+-> Repo, VM
+
+
+-> Coroutine FLOW, Emit functions , change in data 
+-> THERE MAIN FUNCTION ARE-----> QUERY func will get data from database (we want to keep getting update from database) ----> FETCH func will be responsible for fetching NEW DATA from restapi (return list of weathers) -----> saveFetchResult - saving data in db -----> shouldFetch func decide if data from cache is still and we have to fetch new data from web or not.
+
+
+
 Room Database
-Hilt for DI, database instance, dao instance
-Repo, VM
+
+
 Filter and Query to sort data
 
 
