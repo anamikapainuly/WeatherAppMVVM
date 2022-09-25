@@ -17,7 +17,7 @@ import com.anupras.weatherappsample.utils.Helper
  * Created by anamika on 16,September,2022
  */
 class WeatherAdapter(
-    val itemClickListener: OnItemClickListener
+    private val itemClickListener: OnItemClickListener
 ) : ListAdapter<Data, WeatherAdapter.WeatherViewHolder>(DiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
@@ -27,7 +27,9 @@ class WeatherAdapter(
 
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         val currentItem = getItem(position)
-        holder.bind(currentItem)
+        if (currentItem != null) {
+            holder.bind(currentItem)
+        }
         holder.itemView.setOnClickListener {
             currentItem.id?.let { it1 -> itemClickListener.onItemClick(position, it1) }
         }
@@ -54,7 +56,7 @@ class WeatherAdapter(
     //Check for change of Data/items and refresh items on screen
     class DiffCallback : DiffUtil.ItemCallback<Data>(){
         override fun areItemsTheSame(oldItem: Data, newItem: Data) =
-            oldItem.id == newItem.id
+            oldItem.venueID == newItem.venueID
 
         override fun areContentsTheSame(oldItem: Data, newItem: Data) =
             oldItem == newItem

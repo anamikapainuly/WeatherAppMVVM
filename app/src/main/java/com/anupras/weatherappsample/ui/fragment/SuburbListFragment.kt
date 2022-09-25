@@ -1,6 +1,7 @@
 package com.anupras.weatherappsample.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -39,21 +40,23 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         initRecyclerView()
-        initTabLayoutFilter()
         populateWeatherList()
-
+        initTabLayoutFilter()
     }
 
     private fun populateWeatherList() {
         viewModel.weatherList.observe(viewLifecycleOwner) { result ->
-            binding.progressBar.isVisible =
-                result is Resource.Loading && result.data.isNullOrEmpty()
+            binding.progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
+            binding.textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+            binding.textViewError.text = result.error?.localizedMessage
+
             weatherAdapter.submitList(result.data)
             weatherAdapter.notifyItemRangeChanged(0, weatherAdapter.itemCount)
         }
         //Saving last updated date
         PrefsHelper.setLastSyncDate("Last Updated:  " + Helper.returnCurrentDate().toString())
         binding.lastUpdatedText.text = PrefsHelper.getLastSyncDate()
+
 
     }
 
