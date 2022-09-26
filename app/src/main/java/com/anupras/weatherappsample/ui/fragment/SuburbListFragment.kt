@@ -46,7 +46,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         initRecyclerView()
-        populateWeatherList(args.id.toString())
+        populateWeatherList()
         initTabLayoutFilter()
         initUI()
     }
@@ -81,11 +81,11 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         }
 
         binding.swiperefresh.setOnRefreshListener {
-            populateWeatherList(args.id.toString())
+            populateWeatherList()
         }
     }
 
-    private fun populateWeatherList(selected_country: String) {
+    private fun populateWeatherList() {
 
         viewModel.weatherList.observe(viewLifecycleOwner) { result ->
             weatherAdapter.submitList(result.data)
@@ -127,7 +127,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        populateWeatherList(args.id.toString())
+                        populateWeatherList()
                     }
                     1 -> {
                         populateWeatherByTemp()
@@ -172,7 +172,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         when (menuItem.itemId) {
             R.id.action_refresh -> {
                 binding.swiperefresh.isRefreshing = true
-                populateWeatherList(args.id.toString())
+                populateWeatherList()
                 if(binding.tabLayout.selectedTabPosition==1)
                 {
                     populateWeatherByTemp()

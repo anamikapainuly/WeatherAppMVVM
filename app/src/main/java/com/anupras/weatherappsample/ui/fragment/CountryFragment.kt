@@ -34,7 +34,7 @@ class CountryFragment :Fragment(R.layout.fragment_country), CountryAdapter.OnIte
         }
 
         binding.btnClose.setOnClickListener {
-            val action = CountryFragmentDirections.actionCountryFragment2ToSuburbListFragment(" ")
+            val action = CountryFragmentDirections.actionCountryFragment2ToSuburbListFragment("")
             findNavController().navigate(action)
         }
 

@@ -19,9 +19,9 @@ class WeatherViewModel@Inject constructor(
 ): ViewModel() {
 
     val weatherList = repo.getWeatherList(stateStateHandle.get<String>("id").toString()).asLiveData()
-    val weatherListTemp = repo.getWeatherByTemp()
-    val weatherListLastUpdated = repo.getWeatherByLastUpdated()
-    val weatherByCountry = repo.getWeatherByLastUpdated()
+    val weatherListTemp = repo.getWeatherByTemp(stateStateHandle.get<String>("id").toString())
+    val weatherListLastUpdated = repo.getWeatherByLastUpdated(stateStateHandle.get<String>("id").toString())
+    val weatherByCountry = repo.getWeatherByCountry()
 
     fun getWeatherDetails(id: Int): LiveData<Data>{
         return repo.getWeatherDetails(id)

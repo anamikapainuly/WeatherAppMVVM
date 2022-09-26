@@ -18,30 +18,37 @@ import javax.inject.Inject
 class WeatherRepo  @Inject constructor(
     private val apiService: ApiService,
     private val db: WeatherDatabase,
-    private val dao: WeatherDao,
-    stateStateHandle: SavedStateHandle
+    private val dao: WeatherDao
 ) {
 
     fun getWeatherDetails(id:Int) : LiveData<Data> {
         return dao.getWeatherById(id)
     }
 
-    fun getWeatherByTemp() : LiveData<List<Data>> {
-        return dao.getAllWeatherByTemp()
+    fun getWeatherByTemp(country: String) : LiveData<List<Data>> {
+        return if(country=="")
+            dao.getAllWeatherByTemp()
+        else
+            dao.getAllWeatherByTemp(country)
     }
 
     fun getWeatherByCountry() : LiveData<List<Data>> {
         return dao.getAllWeatherByCountry()
     }
 
-    fun getWeatherByLastUpdated() : LiveData<List<Data>> {
-        return dao.getAllWeatherByLastUpdated()
+    fun getWeatherByLastUpdated(country: String) : LiveData<List<Data>> {
+        return if(country=="")
+            dao.getAllWeatherByLastUpdated()
+        else
+            dao.getAllWeatherByLastUpdated(country)
     }
 
-    fun getWeatherList(id: String) = networkBoundResource(
+    fun getWeatherList(country: String) = networkBoundResource(
 
         query = {
-            dao.getAllWeatherByCity(id)
+            if (country == ""){
+            dao.getAllWeatherByCity()}
+            else dao.getAllWeatherByCity(country)
         },
         fetch = {
             apiService.getWeather()
