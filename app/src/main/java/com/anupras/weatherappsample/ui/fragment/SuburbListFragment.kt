@@ -93,10 +93,11 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
             binding.textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
             binding.textViewError.text = result.error?.localizedMessage
             binding.swiperefresh.isRefreshing = false
+            //Saving last updated date
+            PrefsHelper.setLastSyncDate("Last Updated:  " + Helper.returnCurrentDate().toString())
+            binding.lastUpdatedText.text = PrefsHelper.getLastSyncDate()
         }
-        //Saving last updated date
-        PrefsHelper.setLastSyncDate("Last Updated:  " + Helper.returnCurrentDate().toString())
-        binding.lastUpdatedText.text = PrefsHelper.getLastSyncDate()
+
     }
 
     private fun refreshList(){
