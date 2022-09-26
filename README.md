@@ -1,4 +1,25 @@
 # WeatherAppMVVM
+Weather App using MVVM Details:
+___________________________________________________________________________________________________________________________________________________________
+
+----Used MVVM
+
+----Fetched a list of suburbs from API and stored it in a database for the offline cache.
+
+----Used a dagger hilt for database, API and dao instance.
+
+----Used TabBarItems to filter by temp, last updated and displayed list.
+
+----Added a new Filter section, which shows a list of countries.
+
+----On the selecting country, the list is shown for only that country
+
+----Nav Graph for navigating between Country filters, Suburbs and Detail Fragment.
+
+----Detail Fragment to show detail weather report of Suburb.
+
+______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
 -> Weather App using MVVM
 
 -> MVVM With Retrofit and Recyclerview in Kotlin
