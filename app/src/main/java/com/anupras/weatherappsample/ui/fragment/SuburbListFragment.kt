@@ -100,7 +100,6 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
     }
 
     private fun refreshList(){
-        Log.d("Check--", args.id.toString())
         viewModel.getWeatherList(args.id.toString())
     }
 

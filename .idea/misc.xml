@@ -3,11 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/partly_cloud.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20611267089843752" />
         <entry key="app/src/main/res/layout/country_row_holder.xml" value="0.28971710205078127" />
         <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.31069793701171877" />
         <entry key="app/src/main/res/layout/fragment_country.xml" value="0.23953755696614581" />
-        <entry key="app/src/main/res/layout/fragment_detail_view.xml" value="0.36959354062623617" />
+        <entry key="app/src/main/res/layout/fragment_detail_view.xml" value="0.30948944091796876" />
         <entry key="app/src/main/res/layout/fragment_suburb_list.xml" value="0.2549224853515625" />
         <entry key="app/src/main/res/layout/item_weather.xml" value="0.335" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.22407407407407406" />

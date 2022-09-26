@@ -1,14 +1,12 @@
 package com.anupras.weatherappsample.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import com.anupras.weatherappsample.model.Data
 import com.anupras.weatherappsample.repository.WeatherRepo
 import com.anupras.weatherappsample.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -29,6 +27,10 @@ class WeatherViewModel@Inject constructor(
         return repo.getWeatherDetails(id)
     }
     fun getWeatherList(country: String) {
-         repo.getWeatherList(country).asLiveData()
+        viewModelScope.launch {
+            repo.getWeatherList(country).collect { resultState ->
+                //For further development
+                }
+            }
     }
 }

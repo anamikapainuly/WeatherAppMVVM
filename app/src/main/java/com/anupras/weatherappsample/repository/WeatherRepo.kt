@@ -51,7 +51,8 @@ class WeatherRepo  @Inject constructor(
             else dao.getAllWeatherByCity(country)
         },
         fetch = {
-            Log.d("Check--","Check2")
+            //Using Delay to show user list is fetched from API
+            delay(2000)
             apiService.getWeather()
         },
         saveFetchResult = { weatherList ->
