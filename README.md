@@ -20,6 +20,9 @@ Room Database
 
 Filter and Query to sort data
 
+--> Added New filter by country
+
+
 
 ![Screenshot_20220916_185730](https://user-images.githubusercontent.com/6966882/190576281-85ff62f6-083d-48cd-a5e2-61dca4f37c94.png)
 ![2](https://user-images.githubusercontent.com/6966882/190576420-494c31ff-2f32-4c46-9a24-3f8aed5903e1.png)
