@@ -44,23 +44,23 @@ class WeatherRepo  @Inject constructor(
     }
 
     fun getWeatherList(country: String) = networkBoundResource(
-
         query = {
+            Log.d("Check--","Check1")
             if (country == ""){
             dao.getAllWeatherByCity()}
             else dao.getAllWeatherByCity(country)
         },
         fetch = {
+            Log.d("Check--","Check2")
             apiService.getWeather()
         },
         saveFetchResult = { weatherList ->
+            Log.d("Check--","Check3")
             db.withTransaction {
                 dao.deleteAllWeather()
                 dao.insertWeather(weatherList.dataList)
             }
-        },
-        //pass in the logic to determine if the networking call should be made
-        shouldFetch = { true }
+        }
     )
 
 }

@@ -40,6 +40,11 @@ class DetailViewFragment : Fragment(R.layout.fragment_detail_view) {
                 if (it.country?._name != null) {
                     binding.countryText.text = it.country?._name.toString()
                 }
+                if(it.weatherConditionIcon!=null){
+
+                }
+
+
             }
 
         }

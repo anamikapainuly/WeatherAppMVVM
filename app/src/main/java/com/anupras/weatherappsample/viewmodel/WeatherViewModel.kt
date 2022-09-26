@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.anupras.weatherappsample.model.Data
 import com.anupras.weatherappsample.repository.WeatherRepo
+import com.anupras.weatherappsample.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 /**
@@ -18,12 +20,15 @@ class WeatherViewModel@Inject constructor(
     stateStateHandle: SavedStateHandle
 ): ViewModel() {
 
-    val weatherList = repo.getWeatherList(stateStateHandle.get<String>("id").toString()).asLiveData()
+    var weatherList = repo.getWeatherList(stateStateHandle.get<String>("id").toString()).asLiveData()
     val weatherListTemp = repo.getWeatherByTemp(stateStateHandle.get<String>("id").toString())
     val weatherListLastUpdated = repo.getWeatherByLastUpdated(stateStateHandle.get<String>("id").toString())
     val weatherByCountry = repo.getWeatherByCountry()
 
     fun getWeatherDetails(id: Int): LiveData<Data>{
         return repo.getWeatherDetails(id)
+    }
+    fun getWeatherList(country: String) {
+         repo.getWeatherList(country).asLiveData()
     }
 }

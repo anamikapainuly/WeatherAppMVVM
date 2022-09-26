@@ -81,29 +81,27 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         }
 
         binding.swiperefresh.setOnRefreshListener {
-            populateWeatherList()
+            refreshList()
         }
     }
 
     private fun populateWeatherList() {
-
         viewModel.weatherList.observe(viewLifecycleOwner) { result ->
             weatherAdapter.submitList(result.data)
             weatherAdapter.notifyItemRangeChanged(0, weatherAdapter.itemCount)
-
             binding.progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
             binding.textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
             binding.textViewError.text = result.error?.localizedMessage
-
             binding.swiperefresh.isRefreshing = false
-
         }
-
         //Saving last updated date
         PrefsHelper.setLastSyncDate("Last Updated:  " + Helper.returnCurrentDate().toString())
         binding.lastUpdatedText.text = PrefsHelper.getLastSyncDate()
+    }
 
-
+    private fun refreshList(){
+        Log.d("Check--", args.id.toString())
+        viewModel.getWeatherList(args.id.toString())
     }
 
     private fun populateWeatherByTemp() {
@@ -127,7 +125,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        populateWeatherList()
+                        refreshList()
                     }
                     1 -> {
                         populateWeatherByTemp()
@@ -172,7 +170,7 @@ class SuburbListFragment : Fragment(R.layout.fragment_suburb_list), MenuProvider
         when (menuItem.itemId) {
             R.id.action_refresh -> {
                 binding.swiperefresh.isRefreshing = true
-                populateWeatherList()
+                refreshList()
                 if(binding.tabLayout.selectedTabPosition==1)
                 {
                     populateWeatherByTemp()
